@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #accessing the environment variables
-auth_code = os.getenv("AUTH_CODE")
+auth_code = 'CYTrjjR5Se-kBXaiMJk4zMF5wgc81TqD5ZlDbztERgY' #os.getenv("AUTH_CODE").strip("'").strip('"')
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 redirect_uri = os.getenv("REDIRECT_URI")
@@ -26,6 +26,10 @@ payload = {
 headers = {
     "Content-Type": "application/x-www-form-urlencoded"
 }
+
+print(f"CLIENT_ID: {client_id}")
+print(f"CLIENT_SECRET: {client_secret}")
+
 
 # Make the POST request
 response = requests.post(url, data=payload, headers=headers)
@@ -63,6 +67,8 @@ if response.status_code == 200:
             file.write(f"{key}='{value}'\n")
 
     print(f"✅ Access token saved successfully in {env_file}!")
+    print("Access Token:", access_token)
+    print("Refresh Token:", refresh_token)
 
 else:
     print("❌ Failed to get access token:", response.status_code, response.text)

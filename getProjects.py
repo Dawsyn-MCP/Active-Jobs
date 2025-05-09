@@ -7,12 +7,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #accessing the environment variables
-access_token = os.getenv("ACCESS_TOKEN")
+access_token = os.getenv("ACCESS_TOKEN").strip("'").strip('"')
 
 baseUrl = http.client.HTTPSConnection("sandbox.procore.com")
 sandBoxID = "4267385"
 
-headers = {"Authorization":f"Bearer {access_token  }"}
+headers = {"Authorization":f"Bearer {access_token}"}
 
 #get all projects in the sandbox
 baseUrl.request("GET", "/rest/v1.0/projects?company_id=" + sandBoxID, headers=headers)
