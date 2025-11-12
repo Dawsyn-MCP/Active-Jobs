@@ -7,21 +7,24 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #accessing the environment variables
-access_token = os.getenv("ACCESS_TOKEN").strip("'").strip('"')
+access_token = os.getenv("ACCESS_TOKEN")
 
 baseUrl = http.client.HTTPSConnection("sandbox.procore.com")
+projectID = "262787"
 sandBoxID = "4267385"
 
 headers = {"Authorization":f"Bearer {access_token}"}
 
 #get all projects in the sandbox
-baseUrl.request("GET", "/rest/v1.0/projects?company_id=" + sandBoxID, headers=headers)
+baseUrl.request("GET", "/rest/v1.0/project_roles?project_id=" + projectID, "company_id=" + sandBoxID,  headers=headers)
 
 response = baseUrl.getresponse()
 data = response.read()
 
 # Decode the response from bytes to string
 json_string = data.decode("utf-8")
+
+print(data.decode("utf-8"))  # Assuming the response is in JSON format
 
 # Convert string to JSON object (dict)
 try:
@@ -32,7 +35,7 @@ except json.JSONDecodeError as e:
 
 # Define the file path to save JSON output
 script_dir = os.path.dirname(__file__)  # Current script directory
-output_file = os.path.join(script_dir, "projects.json")  # File path
+output_file = os.path.join(script_dir, "Data/roles.json")  # File path
 
 # Write JSON data to a file with proper formatting
 with open(output_file, "w", encoding="utf-8") as file:

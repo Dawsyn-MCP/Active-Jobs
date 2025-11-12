@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #accessing the environment variables
-auth_code = 'CYTrjjR5Se-kBXaiMJk4zMF5wgc81TqD5ZlDbztERgY' #os.getenv("AUTH_CODE").strip("'").strip('"')
+auth_code = os.getenv("AUTH_CODE")
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 redirect_uri = os.getenv("REDIRECT_URI")
